@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    
+    // Input Temporal hasta tener el sistema
+
     public float velocidad = 5f; // Velocidad de movimiento del jugador
 
     void Update()

@@ -5,16 +5,17 @@ using UnityEngine;
 public class InteractObject : MonoBehaviour
 {
 
-    [SerializeField] GameObject _player;
+    [SerializeField] private GameObject _player;
     [SerializeField] private float _interactDistance;
 
-    private Vector2 _playerPos;
+    public float _interactionsCounter;      // Para contar las interacciones con el objeto
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && EstaDentroDelArea())
         {
             RealizarInteraccion();
+            _interactionsCounter++;
         }
     }
 
