@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowPath : MonoBehaviour
+public class PathingComponent : MonoBehaviour
 {
 
-    [SerializeField] private float moveSpeed_;
+    [SerializeField] private float _moveSpeed;
 
     // List of points to follow
-    [SerializeField] private Transform[] path_;
+    [SerializeField] private Transform[] _path;
 
-    [SerializeField] private float minDistance_;
+    [SerializeField] private float _minDistance;
 
-    [SerializeField] private float timeToWait_;
+    [SerializeField] private float _timeToWait;
 
     private int rdmNum_;
     private int lastRdmNum_;
@@ -21,7 +21,7 @@ public class FollowPath : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rdmNum_ = Random.Range(0, path_.Length);
+        rdmNum_ = Random.Range(0, _path.Length);
         StartCoroutine(followPath());
     }
 
@@ -34,12 +34,12 @@ public class FollowPath : MonoBehaviour
     {
         while (true)
         {
-            while (transform.position != path_[rdmNum_].position)
+            while (transform.position != _path[rdmNum_].position)
             {
-                transform.position = Vector3.MoveTowards(transform.position, path_[rdmNum_].position, Time.deltaTime * moveSpeed_);
+                transform.position = Vector3.MoveTowards(transform.position, _path[rdmNum_].position, Time.deltaTime * _moveSpeed);
                 yield return null;
             }
-            yield return new WaitForSeconds(timeToWait_);
+            yield return new WaitForSeconds(_timeToWait);
 
             generateNextPoint() ;
         }
@@ -49,7 +49,7 @@ public class FollowPath : MonoBehaviour
         int aux = rdmNum_;
         do
         {
-            rdmNum_ = Random.Range(0, path_.Length);
+            rdmNum_ = Random.Range(0, _path.Length);
         } while (rdmNum_ == lastRdmNum_ || rdmNum_ == aux);
 
         lastRdmNum_ = aux;
