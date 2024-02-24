@@ -21,7 +21,7 @@ public class InteractObject : MonoBehaviour
 
     private bool EstaDentroDelArea()
     {
-        float distanciaAlJugador = Vector2.Distance(transform.position, _player.transform.position);
+        float distanciaAlJugador = Vector3.Distance(transform.position, _player.transform.position);
         return distanciaAlJugador <= _interactDistance;
     }
 
