@@ -1,0 +1,22 @@
+.clichea-data-bar .unity-progress-bar__background {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    flex-grow: 1;
+}
+
+.clichea-data-bar .unity-progress-bar__progress {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.health-bar {
+}
+
+.health-bar .unity-progress-bar__progress {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(89, 21, 21);
+}
+
+.health-bar .unity-progress-bar__background {
+    width: 181px;
+}

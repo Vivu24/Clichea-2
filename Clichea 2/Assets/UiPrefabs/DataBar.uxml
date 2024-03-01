@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIStyleSheets/HealthBar.uss?fileID=7433441132597879392&amp;guid=547dd5dfc3f023941b6b5e15e0b1c0dd&amp;type=3#HealthBar" />
+    <ui:VisualElement name="DataBar" style="flex-direction: row; align-items: center;">
+        <ui:VisualElement style="width: 50px; height: 50px; flex-direction: row; align-items: center; justify-content: center;">
+            <ui:VisualElement name="Icon" style="background-image: url(&apos;project://database/Assets/Assets/UI/1706437308924.jpg?fileID=2800000&amp;guid=6b46fcab8ad86c84db3a3a4f89f8b021&amp;type=3#1706437308924&apos;); align-items: center; justify-content: center; width: 30px; height: 30px; margin-left: 9px; margin-right: 9px; margin-top: 9px; margin-bottom: 9px;" />
+        </ui:VisualElement>
+        <ui:ProgressBar value="13.6" title="Data" low-value="0" name="DataBarProgress" class="clichea-data-bar" style="width: 100px;" />
+    </ui:VisualElement>
+</ui:UXML>

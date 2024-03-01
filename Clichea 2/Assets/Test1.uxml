@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="DataBar" src="project://database/Assets/UiPrefabs/DataBar.uxml?fileID=9197481963319205126&amp;guid=bfbce6535a8fdc841b443c5b26e509c2&amp;type=3#DataBar" />
+    <Style src="project://database/Assets/UIStyleSheets/HealthBar.uss?fileID=7433441132597879392&amp;guid=547dd5dfc3f023941b6b5e15e0b1c0dd&amp;type=3#HealthBar" />
+    <ui:VisualElement name="Turnos" style="flex-grow: 1; flex-basis: 20px;" />
+    <ui:VisualElement name="Juego" style="flex-grow: 1; flex-basis: 50%;" />
+    <ui:VisualElement name="Pie" style="flex-grow: 1; flex-basis: 27%; flex-direction: row;">
+        <ui:VisualElement name="CharacterData" style="flex-grow: 0.1; flex-basis: 20%;">
+            <ui:VisualElement name="CharacterIcon" style="width: 120px; height: 120px; background-image: url(&apos;project://database/Assets/Assets/UI/1706437308924.jpg?fileID=2800000&amp;guid=6b46fcab8ad86c84db3a3a4f89f8b021&amp;type=3#1706437308924&apos;);" />
+            <ui:VisualElement style="background-color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); flex-grow: 1;">
+                <ui:Instance template="DataBar" name="DataBar" />
+                <ui:Instance template="DataBar" name="DataBar" class="health-bar" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ActionMenu" />
+        <ui:VisualElement name="ActionMenu2" />
+    </ui:VisualElement>
+</ui:UXML>
