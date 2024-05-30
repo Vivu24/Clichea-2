@@ -19,8 +19,18 @@
 
             Console.WriteLine("Hello, World!");
             BarraTurnos barra = new BarraTurnos();
+            //Añadir aquí todos los personajes y velocidades que queráis probar
             barra.AddPersonaje(new Personaje(20, 0, "Elric"));
-            Show(barra);
+            barra.AddPersonaje(new Personaje(40, 0, "Jose"));
+            barra.AddPersonaje(new Personaje(30, 0, "Julián"));
+            barra.SetupBar();
+            bool exit = false;
+            while (!exit) {
+                Show(barra);
+                barra.Turn();
+                exit = Console.Read() == 'x';
+                Console.ReadLine(); //Para limpiar el buffer de caracteres
+            }
         }
 
     }
