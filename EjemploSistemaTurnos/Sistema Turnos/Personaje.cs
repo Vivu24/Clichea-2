@@ -8,28 +8,14 @@ namespace Sistema_Turnos
 {
     internal class Personaje
     {
-        public static int BASE_ACTION_VALUE = 10000;
+        public double velocidad; //El atributo de velocidad del personaje. Define dónde empieza en la barra de turnos y donde se coloca al utilizar su acción.
+        public double accion; //El valor de acción en el combate. Define su posición en la barra.
+        public string nombre; //El nombre del personaje. Sin más.
 
-        public Personaje(double velocidad, string nombre) {
+        public Personaje(double velocidad, double accion, string nombre) {
             this.velocidad = velocidad;
             this.nombre = nombre;
+            this.accion = accion;
         }
-
-        private double velocidad;
-        private double valorDeAccion;
-        private string nombre;
-
-        public double GetVelocidad() { return velocidad; }
-        public double GetValorDeAccion() {  return valorDeAccion; }
-        public string GetNombre() {  return nombre; }
-        //public void SetValorDeAccion(double valorDeAccion) { this.valorDeAccion = valorDeAccion; }
-        //public void SetVelocidad(double velocidad) { this.velocidad = velocidad; }
-
-        public void RefreshValorAccion()
-        {
-            valorDeAccion = BASE_ACTION_VALUE / velocidad;
-        }
-
-
     }
 }

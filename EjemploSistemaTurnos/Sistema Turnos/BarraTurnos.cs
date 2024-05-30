@@ -15,6 +15,8 @@ namespace Sistema_Turnos
         //Habría que pensar cual es la forma adecuada de calcular ese factor de reducción.
         //Por ahora va a ser equivalente al valor del mas pequeño de la lista
 
+        private static int VALOR_ACCION_BASE = 100;
+
         private List<Personaje> personajeList;
 
         public BarraTurnos() {
@@ -30,7 +32,7 @@ namespace Sistema_Turnos
         {
             foreach (Personaje p in personajeList)
             {
-                p.RefreshValorAccion();
+                p.accion = p.velocidad * VALOR_ACCION_BASE;
             }
             return 0;
         }
@@ -41,6 +43,11 @@ namespace Sistema_Turnos
         public void Turn()
         {
 
+        }
+        
+        public List<Personaje> GetPersonajeList()
+        {
+            return personajeList;
         }
     }
 }
