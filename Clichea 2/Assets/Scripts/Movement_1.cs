@@ -25,7 +25,6 @@ public class Movement_1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         Vector3 forwardRelative = new Vector3(cam.forward.x,0,cam.forward.z)* dirZ;
         Vector3 rightRelative = new Vector3(cam.right.x, 0, cam.right.z) * dirX;
 
