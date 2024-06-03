@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6506d28fda3564788733610632b049, type: 3}
   m_Name: BoardEjemploz
   m_EditorClassIdentifier: 
-  width: 2
-  height: 2
+  xCells: 4
+  zCells: 7

@@ -7,7 +7,7 @@ public class BoardData : ScriptableObject
 {
     //Datos para la creación de un board.
     [SerializeField]
-    public int width;
+    public int xCells;
     [SerializeField]    
-    public int height;
+    public int zCells;
 }

@@ -18,23 +18,23 @@ public class Board : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateBoard(boardData.width, boardData.height);
+        GenerateBoard(boardData.xCells, boardData.zCells);
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Crea un tablero a partir de los parametros.
+    /// </summary>
+    /// <param name="xCells">El numero de casillas en el eje x</param>
+    /// <param name="zCells">El numero de casillas en el eje z</param>
+    void GenerateBoard(int xCells,int zCells)
     {
+        cells = new Cell[xCells, zCells];
 
-    }
-    void GenerateBoard(int width,int height)
-    {
-        cells = new Cell[width, height];
-
-        if (width <= 0 || height <= 0) return;
+        if (xCells <= 0 || zCells <= 0) return;
   
-        for(int i = 0;i < width; i++)
+        for(int i = 0;i < xCells; i++)
         {
-            for(int j = 0;j < height;j++)
+            for(int j = 0;j < zCells;j++)
             {
                 Cell cell = Instantiate(cellPrefab, 
                     new Vector3(cell00position.x + i*cellSeparation,cell00position.y,cell00position.z + j * cellSeparation),
@@ -42,6 +42,7 @@ public class Board : MonoBehaviour
 
                 cells[i, j] = cell;
                 cell.SetBoard(this);
+                cell.AssignCellState(Cell.CellState.BASE);
             }
         }
 
