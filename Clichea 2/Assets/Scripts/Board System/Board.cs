@@ -45,6 +45,16 @@ public class Board : MonoBehaviour
                 cell.AssignCellState(Cell.CellState.BASE);
             }
         }
+    }
 
+    /// <summary>
+    /// Muestra las casillas objetivo a partir de una forma y un objetivo en el centro.
+    /// </summary>
+    /// <param name="target">La casilla en el centro de la forma</param>
+    /// <param name="shape">La forma de la seleccion</param>
+    /// <param name="state">El estado de casilla a aplicar</param>
+    void HintTargetCells(Cell target, ShapeData shape, Cell.CellState state)
+    {
+        
     }
 }
