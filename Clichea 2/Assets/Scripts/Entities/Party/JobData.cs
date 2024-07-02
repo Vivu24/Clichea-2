@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Scriptable que define los atributos de una clase, sus habilidades y etc.
-/// Para saber que hace cada atributo, ir al documento de diseño
+/// Para saber que hace cada atributo, ir al documento de diseï¿½o
 /// </summary>
-[CreateAssetMenu(fileName = "Class", menuName = "ScriptableObjects/Party/Class", order = 1)]
-public class Class : ScriptableObject
+[CreateAssetMenu(fileName = "Job", menuName = "ScriptableObjects/Party/Job", order = 1)]
+public class JobData : ScriptableObject
 {
-    public enum ClassType {
+    public enum JobType {
         Def, Atk, Supp
     }
 
@@ -35,7 +33,7 @@ public class Class : ScriptableObject
     public string CLASSNAME;
     [SerializeField]
     [Tooltip("El tipo principal de la clase")]
-    public ClassType CLASSTYPE;
+    public JobType CLASSTYPE;
 
-    //También debería tener una estructura de datos con las diferentes habilidades y su nivel para desbloqueo
+    //Tambiï¿½n deberï¿½a tener una estructura de datos con las diferentes habilidades y su nivel para desbloqueo
 }
