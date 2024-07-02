@@ -54,7 +54,7 @@ public class Board : MonoBehaviour
     /// <param name="shape">La forma de la seleccion</param>
     /// <param name="state">El estado de casilla a aplicar</param>
     void HintTargetCells(Cell target, ShapeData shape, Cell.CellState state)
-    { 
+    {
         
     }
 }
