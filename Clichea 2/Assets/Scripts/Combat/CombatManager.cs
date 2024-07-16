@@ -6,7 +6,7 @@ public class CombatManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> entities;
 
-    // Prefab del enemigo por defecto, se puede utilizar si no se pasa uno en el método
+    // Prefab del enemigo por defecto, se puede utilizar si no se pasa uno en el mÃ©todo
     [SerializeField] GameObject defaultEnemyPrefab;
     [SerializeField] GameObject blackEnemyPrefab;
 
@@ -29,7 +29,7 @@ public class CombatManager : MonoBehaviour
 
         for (int i = 0; i < numberOfEnemies; i++)
         {
-            // Calcular la posición del nuevo enemigo
+            // Calcular la posiciÃ³n del nuevo enemigo
             Vector3 newPosition = new Vector3(enemySpawnTransform.position.x, 
                                                 enemySpawnTransform.position.y, 
                                                 enemySpawnTransform.position.z + i * separation);

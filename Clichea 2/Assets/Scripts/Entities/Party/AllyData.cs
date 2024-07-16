@@ -11,5 +11,5 @@ public class AllyData : CharacterData
     public int currentPV;
     [SerializeField]
     [Tooltip("La clase asignada al personaje")]
-    public JobData job;
+    public JobData CLASS;
 }

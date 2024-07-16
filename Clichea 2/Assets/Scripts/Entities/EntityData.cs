@@ -11,4 +11,7 @@ public class EntityData : ScriptableObject
     [SerializeField]
     [Tooltip("Nombre")]
     public string NAME;
+    [SerializeField]
+    [Tooltip("Prefab")]
+    public GameObject prefab;
 }
