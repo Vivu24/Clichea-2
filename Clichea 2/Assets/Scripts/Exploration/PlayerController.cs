@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         myTr_ = GetComponent<Transform>();
         myCharControl_ = GetComponent<CharacterController>();
         movementDir_ = new Vector3(0, 0, 0);
-        GameManager.Instance.gameObject.GetComponent<ExplorationMovementManager>().RegisterPlayer(this);
+        //GameManager.Instance.gameObject.GetComponent<ExplorationMovementManager>().RegisterPlayer(this);
     }
 
     void Update()
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
             verticalSpeed_ = 0;
         }
         movementDir_.y = verticalSpeed_;
-        myCharControl_.Move(movementDir_ * movementSpeed_ * Time.deltaTime);
+        myCharControl_.Move(movementDir_ * (movementSpeed_ * Time.deltaTime));
     }
 
     void MoverJugador()
