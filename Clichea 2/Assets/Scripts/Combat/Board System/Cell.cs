@@ -10,7 +10,7 @@ public class Cell : MonoBehaviour
 {
     BoardManager _board;
     //La entidad que está en esta casilla
-    private GameObject _entity;
+    private Entity _entity;
     /// <summary>
     /// Define el estado de la casilla, por ejemplo si es seleccionable, está siendo seleccionada, es inaccesible, etc.
     /// </summary>
@@ -64,7 +64,7 @@ public class Cell : MonoBehaviour
     }
 
     //Asigna una entidad a esta casilla, si ya está ocupada devuelve false
-    public bool AssignEntity(GameObject entity)
+    public bool AssignEntity(Entity entity)
     {
         if (_entity != null)
         {

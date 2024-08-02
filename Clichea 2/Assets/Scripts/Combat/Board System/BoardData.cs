@@ -10,5 +10,7 @@ public class BoardData : ScriptableObject
     [SerializeField]    
     public int zCells;
     [SerializeField]
-    public EnemyOnBoard[] enemyPositions;
+    public EntityOnBoard[] enemyPositions;
+
+    public EntityOnBoard[] allyPositions;
 }

@@ -8,18 +8,21 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class CombatManager : MonoBehaviour
 {
-    [SerializeField] List<GameObject> entities;
+    List<Entity> _entityList;
 
     // Prefab del enemigo por defecto, se puede utilizar si no se pasa uno en el método
     [SerializeField] GameObject defaultEnemyPrefab;
     [SerializeField] GameObject blackEnemyPrefab;
 
-    [FormerlySerializedAs("board")] [SerializeField] BoardManager boardManager;
+    [SerializeField] BoardManager boardManager;
 
     //Llamar a cada uno de los controladores y caracteristicas a generar antes de empezar el combate
     //En el resto de managers "secundarios" del combate no se llamará al start para evitar problemas de orden
     private void Start()
     {
+        //Inicialización de variables
+        _entityList = new List<Entity>();
+        //Construcción de la escena
         boardManager.GenerateBoard();
         CreateEnemies();
     }
@@ -29,21 +32,8 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     public void CreateEnemies()
     {
-        EnemyOnBoard[] enemies = boardManager.getBoardData().enemyPositions;
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            EnemyOnBoard e = enemies[i];
-            Cell cell = boardManager.FindCell(e.x, e.z);
-            GameObject newEnemy = Instantiate(e.prefab, 
-                cell.gameObject.transform.position, 
-                Quaternion.identity);
-            entities.Add(newEnemy);
-            if (!cell.AssignEntity(newEnemy))
-            {
-                Debug.Log("la casilla está ocupada!");
-            }
-        }
-
+        EntityOnBoard[] enemiesOnBoard = boardManager.getBoardData().enemyPositions;
+        AddEntity(enemiesOnBoard);
         ShuffleShiftBar(); // Ordenar la barra de turnos después de crear los enemigos
     }
 
@@ -53,10 +43,10 @@ public class CombatManager : MonoBehaviour
     public void ShuffleShiftBar()
     {
         // Crear una lista temporal para almacenar las entidades ordenadas
-        List<GameObject> sortedEntities = new List<GameObject>();
+        List<Entity> sortedEntities = new List<Entity>();
 
         // Iterar sobre todas las entidades
-        foreach (GameObject entity in entities)
+        foreach (Entity entity in _entityList)
         {
             // Obtener el componente Entity para acceder a los datos
             Entity entityComponent = entity.GetComponent<Entity>();
@@ -73,7 +63,7 @@ public class CombatManager : MonoBehaviour
             bool inserted = false;
             for (int i = 0; i < sortedEntities.Count; i++)
             {
-                EntityData sortedData = sortedEntities[i].GetComponent<Entity>().data;
+                EntityData sortedData = sortedEntities[i].data;
                 int sortedVelocity = 0;
                 if (sortedData is CharacterData sortedCharacterData)
                 {
@@ -95,17 +85,18 @@ public class CombatManager : MonoBehaviour
         }
 
         // Asignar la lista ordenada a la lista original de entidades
-        entities = sortedEntities;
+        _entityList = sortedEntities;
 
         // Mostrar el orden de turnos
-        for (int i = 0; i < entities.Count; i++)
+        for (int i = 0; i < _entityList.Count; i++)
         {
-            EntityData data = entities[i].GetComponent<Entity>().data;
+            EntityData data = _entityList[i].data;
             int velocity = 0;
             if (data is CharacterData characterData)
             {
                 velocity = characterData.VEL;
             }
+
             Debug.Log("Turn " + (i + 1) + ": " + data.NAME + " with VEL: " + velocity);
         }
     }
@@ -116,9 +107,35 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     public void CheckRoundState()
     {
-        for (int i = 0; i < entities.Count; i++)
+        for (int i = 0; i < _entityList.Count; i++)
         {
             // Comprobar si han muerto todas las tropas de un lado
+        }
+    }
+
+    /// <summary>
+    /// Instancia y añade al tablero un array de entidades
+    /// </summary>
+    /// <param name="ents">Las entidades a crear</param>
+    private void AddEntity(EntityOnBoard[] ents)
+    {
+        for (int i = 0; i < ents.Length; i++)
+        {
+            EntityOnBoard eob = ents[i];
+            //Busca la casilla en la que se va a colocar el enemigo
+            Cell cell = boardManager.FindCell(eob.x, eob.z);
+            //Instancia el enemigo
+            GameObject obj = Instantiate(eob.entityData.prefab,
+                cell.gameObject.transform.position,
+                Quaternion.identity);
+            //Añade el componente entity a la lista de entitys y le asigna sus datos.
+            Entity entity = obj.GetComponent<Entity>();
+            _entityList.Add(entity);
+            entity.data = ents[i].entityData;
+            if (!cell.AssignEntity(entity))
+            {
+                Debug.Log("la casilla está ocupada!");
+            }
         }
     }
 }
