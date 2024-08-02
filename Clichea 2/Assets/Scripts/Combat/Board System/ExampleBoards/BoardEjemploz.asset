@@ -14,3 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xCells: 6
   zCells: 7
+  enemyPositions:
+  - x: 1
+    z: 2
+    prefab: {fileID: 4180195246910870, guid: de03d8f3cf2f4b047ad2f0f6b021fa6b, type: 3}
+  - x: 4
+    z: 2
+    prefab: {fileID: 4180195246910870, guid: de03d8f3cf2f4b047ad2f0f6b021fa6b, type: 3}
+  - x: 1
+    z: 3
+    prefab: {fileID: 4180195246910870, guid: de03d8f3cf2f4b047ad2f0f6b021fa6b, type: 3}

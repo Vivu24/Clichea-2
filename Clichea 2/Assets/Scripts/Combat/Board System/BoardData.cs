@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Board", menuName = "ScriptableObjects/Board/Board", order = 1)]
 public class BoardData : ScriptableObject
 {
-    //Datos para la creación de un board.
+    //Datos para la creaciï¿½n de un board.
     [SerializeField]
     public int xCells;
     [SerializeField]    
     public int zCells;
+    [SerializeField]
+    public EnemyOnBoard[] enemyPositions;
 }

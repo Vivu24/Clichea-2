@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Serialization;
 using static UnityEngine.EventSystems.EventTrigger;
 
 public class CombatManager : MonoBehaviour
@@ -12,36 +14,34 @@ public class CombatManager : MonoBehaviour
     [SerializeField] GameObject defaultEnemyPrefab;
     [SerializeField] GameObject blackEnemyPrefab;
 
-    [SerializeField] Transform enemySpawnTransform;
+    [FormerlySerializedAs("board")] [SerializeField] BoardManager boardManager;
 
-    public void Create3BlackEnemies()
+    //Llamar a cada uno de los controladores y caracteristicas a generar antes de empezar el combate
+    //En el resto de managers "secundarios" del combate no se llamará al start para evitar problemas de orden
+    private void Start()
     {
-        CreateEnemies(3, blackEnemyPrefab, 2.0f);
+        boardManager.GenerateBoard();
+        CreateEnemies();
     }
 
     /// <summary>
     /// Creates enemies of one type with a separation depending how much it needs to create
     /// </summary>
-    /// <param name="numberOfEnemies"></param>
-    /// <param name="prefab"></param>
-    /// <param name="separation"></param>
-    public void CreateEnemies(int numberOfEnemies, GameObject prefab, float separation)
+    public void CreateEnemies()
     {
-        Debug.Log("CreateEnemies Button Pressed");
-
-        if (prefab == null)
+        EnemyOnBoard[] enemies = boardManager.getBoardData().enemyPositions;
+        for (int i = 0; i < enemies.Length; i++)
         {
-            prefab = defaultEnemyPrefab; // Usa el prefab por defecto si no se pasa uno
-        }
-
-        for (int i = 0; i < numberOfEnemies; i++)
-        {
-            // Calcular la posición del nuevo enemigo (HABRA QUE ADAPTARLO A CASILLAS DEL TABLERO)
-            Vector3 newPosition = new Vector3(enemySpawnTransform.position.x,
-                                                enemySpawnTransform.position.y,
-                                                enemySpawnTransform.position.z + i * separation);
-            GameObject newEnemy = Instantiate(prefab, newPosition, Quaternion.identity);
+            EnemyOnBoard e = enemies[i];
+            Cell cell = boardManager.FindCell(e.x, e.z);
+            GameObject newEnemy = Instantiate(e.prefab, 
+                cell.gameObject.transform.position, 
+                Quaternion.identity);
             entities.Add(newEnemy);
+            if (!cell.AssignEntity(newEnemy))
+            {
+                Debug.Log("la casilla está ocupada!");
+            }
         }
 
         ShuffleShiftBar(); // Ordenar la barra de turnos después de crear los enemigos
@@ -52,8 +52,6 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     public void ShuffleShiftBar()
     {
-        Debug.Log("Shuffling Shift Bar (Gracias EDA.....)");
-
         // Crear una lista temporal para almacenar las entidades ordenadas
         List<GameObject> sortedEntities = new List<GameObject>();
 

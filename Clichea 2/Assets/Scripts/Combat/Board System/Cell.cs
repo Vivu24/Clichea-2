@@ -8,10 +8,11 @@ using UnityEngine;
 /// </summary>
 public class Cell : MonoBehaviour
 {
-    Board board;
-
+    BoardManager _board;
+    //La entidad que está en esta casilla
+    private GameObject _entity;
     /// <summary>
-    /// Define el estado de la casilla, por ejemplo si es seleccionable, est� siendo seleccionada, es inaccesible, etc.
+    /// Define el estado de la casilla, por ejemplo si es seleccionable, está siendo seleccionada, es inaccesible, etc.
     /// </summary>
     public enum CellState
     {
@@ -25,7 +26,7 @@ public class Cell : MonoBehaviour
     [SerializeField]
     Material baseMaterial; //El material mostrado normalmente.
     [SerializeField]
-    Material selectableMaterial; //El material mostrado si la casilla se puede seleccionar/es un area de selecci�n.
+    Material selectableMaterial; //El material mostrado si la casilla se puede seleccionar/es un area de selección.
 
     /// <summary>
     /// Asigna un nuevo estado a la casilla y realiza todos los cambios necesarios a su aspecto y comportamiento.
@@ -57,8 +58,22 @@ public class Cell : MonoBehaviour
         }
     }
 
-    public void SetBoard(Board board)
+    public void SetBoard(BoardManager board)
     {
-        this.board = board;
+        this._board = board;
+    }
+
+    //Asigna una entidad a esta casilla, si ya está ocupada devuelve false
+    public bool AssignEntity(GameObject entity)
+    {
+        if (_entity != null)
+        {
+            return false;
+        }
+        else
+        {
+            _entity = entity;
+            return true;
+        }
     }
 }
