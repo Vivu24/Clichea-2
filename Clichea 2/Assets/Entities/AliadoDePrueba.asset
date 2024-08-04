@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalPV: 0
   NAME: 
+  prefab: {fileID: 4180195246910870, guid: de03d8f3cf2f4b047ad2f0f6b021fa6b, type: 3}
   ATK: 0
   DEF: 0
   P: 0
   MOV: 0
   VEL: 0
   currentPV: 0
-  job: {fileID: 0}
+  CLASS: {fileID: 0}

@@ -8,7 +8,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class CombatManager : MonoBehaviour
 {
-    List<Entity> _entityList;
+    public List<Entity> _entityList;
 
     // Prefab del enemigo por defecto, se puede utilizar si no se pasa uno en el método
     [SerializeField] GameObject defaultEnemyPrefab;
@@ -32,6 +32,7 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     public void CreateEnemies()
     {
+        Debug.Log("CreateEnemies");
         EntityOnBoard[] enemiesOnBoard = boardManager.getBoardData().enemyPositions;
         AddEntity(enemiesOnBoard);
         ShuffleShiftBar(); // Ordenar la barra de turnos después de crear los enemigos
