@@ -59,21 +59,35 @@ public class CombatUIManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// La UI "Normal" donde se puede seleccionar que realizar en el turno
+    /// </summary>
     public void ChangeToBasicUI()
     {
         changeCurrentActiveUI(BasicUI);
     }
 
+    /// <summary>
+    /// Cambio al modo Movimiento que nos permitira seleccionar hasta que casilla mover al jugador
+    /// </summary>
     public void ChangeToMovementUI()
     {
         changeCurrentActiveUI(MovementUI);
     }
 
+    /// <summary>
+    /// Cambia al modo Abilidad que nos permitira elegir que habilidad realizar en el combate
+    /// </summary>
     public void ChangeToAbilityUI()
     {
         changeCurrentActiveUI(AbilityUI);
     }
 
+    /// <summary>
+    /// Recibe como parametro el modo de UI al que se quiere cambiar y lo reemplaza por el que habia previamente
+    /// como el currentUI activo
+    /// </summary>
+    /// <param name="currentUI"></param>
     public void changeCurrentActiveUI(GameObject currentUI)
     {
         currentActiveUI.SetActive(false);
@@ -81,5 +95,4 @@ public class CombatUIManager : MonoBehaviour
         currentActiveUI = currentUI;
         currentActiveUI.SetActive(true);
     }
-
 }

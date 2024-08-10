@@ -17,10 +17,17 @@ MonoBehaviour:
   enemyPositions:
   - x: 1
     z: 2
-    prefab: {fileID: 4180195246910870, guid: de03d8f3cf2f4b047ad2f0f6b021fa6b, type: 3}
+    entityData: {fileID: 0}
   - x: 4
     z: 2
-    prefab: {fileID: 4180195246910870, guid: de03d8f3cf2f4b047ad2f0f6b021fa6b, type: 3}
+    entityData: {fileID: 0}
   - x: 1
     z: 3
-    prefab: {fileID: 4180195246910870, guid: de03d8f3cf2f4b047ad2f0f6b021fa6b, type: 3}
+    entityData: {fileID: 0}
+  - x: 4
+    z: 4
+    entityData: {fileID: 0}
+  allyPositions:
+  - x: 1
+    z: 1
+    entityData: {fileID: 0}

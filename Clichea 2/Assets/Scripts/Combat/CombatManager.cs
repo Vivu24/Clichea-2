@@ -98,7 +98,7 @@ public class CombatManager : MonoBehaviour
                 velocity = characterData.VEL;
             }
 
-            Debug.Log("Turn " + (i + 1) + ": " + data.NAME + " with VEL: " + velocity);
+            //Debug.Log("Turn " + (i + 1) + ": " + data.NAME + " with VEL: " + velocity);
         }
     }
 
@@ -126,9 +126,16 @@ public class CombatManager : MonoBehaviour
             //Busca la casilla en la que se va a colocar el enemigo
             Cell cell = boardManager.FindCell(eob.x, eob.z);
             //Instancia el enemigo
-            GameObject obj = Instantiate(eob.entityData.prefab,
+
+
+            //GameObject obj = Instantiate(eob.entityData.prefab,
+            //    cell.gameObject.transform.position,
+            //    Quaternion.identity);
+
+            GameObject obj = Instantiate(blackEnemyPrefab,
                 cell.gameObject.transform.position,
                 Quaternion.identity);
+
             //Añade el componente entity a la lista de entitys y le asigna sus datos.
             Entity entity = obj.GetComponent<Entity>();
             _entityList.Add(entity);
