@@ -5,10 +5,20 @@ using UnityEngine;
 
 public class CombatUIManager : MonoBehaviour
 {
+
+    // REFERENCES to UIs
+    [SerializeField] private GameObject BasicUI;
+    [SerializeField] private GameObject MovementUI;
+    [SerializeField] private GameObject AbilityUI;
+
+    private GameObject currentActiveUI;
+
+    enum UIStates { BASIC, MOVEMENT, ABILITY }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentActiveUI = BasicUI;
     }
 
     // Update is called once per frame
@@ -48,4 +58,28 @@ public class CombatUIManager : MonoBehaviour
     {
 
     }
+
+    public void ChangeToBasicUI()
+    {
+        changeCurrentActiveUI(BasicUI);
+    }
+
+    public void ChangeToMovementUI()
+    {
+        changeCurrentActiveUI(MovementUI);
+    }
+
+    public void ChangeToAbilityUI()
+    {
+        changeCurrentActiveUI(AbilityUI);
+    }
+
+    public void changeCurrentActiveUI(GameObject currentUI)
+    {
+        currentActiveUI.SetActive(false);
+        currentActiveUI = null;
+        currentActiveUI = currentUI;
+        currentActiveUI.SetActive(true);
+    }
+
 }
