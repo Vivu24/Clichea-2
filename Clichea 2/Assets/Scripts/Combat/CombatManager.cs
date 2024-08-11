@@ -13,33 +13,44 @@ public class CombatManager : MonoBehaviour
     // Prefab del enemigo por defecto, se puede utilizar si no se pasa uno en el método
     [SerializeField] GameObject defaultEnemyPrefab;
     [SerializeField] GameObject blackEnemyPrefab;
+    [SerializeField] GameObject defaultAllyPrefab;
 
     [SerializeField] BoardManager boardManager;
 
-    //Llamar a cada uno de los controladores y caracteristicas a generar antes de empezar el combate
-    //En el resto de managers "secundarios" del combate no se llamará al start para evitar problemas de orden
+    // Llamar a cada uno de los controladores y caracteristicas a generar antes de empezar el combate
+    // En el resto de managers "secundarios" del combate no se llamará al start para evitar problemas de orden
     private void Start()
     {
-        //Inicialización de variables
+        // Inicialización de variables
         _entityList = new List<Entity>();
-        //Construcción de la escena
+        // Construcción de la escena
         boardManager.GenerateBoard();
-        CreateEnemies();
+        CreateEntities(); // Se encarga de crear tanto enemigos como aliados
     }
 
     /// <summary>
-    /// Creates enemies of one type with a separation depending how much it needs to create
+    /// Crea todas las entidades (aliados y enemigos) del tablero basado en el board data
     /// </summary>
-    public void CreateEnemies()
+    public void CreateEntities()
     {
-        Debug.Log("CreateEnemies");
+        Debug.Log("CreateEntities");
+
+        // Obtener las posiciones de enemigos y aliados desde el BoardManager
         EntityOnBoard[] enemiesOnBoard = boardManager.getBoardData().enemyPositions;
-        AddEntity(enemiesOnBoard);
-        ShuffleShiftBar(); // Ordenar la barra de turnos después de crear los enemigos
+        EntityOnBoard[] alliesOnBoard = boardManager.getBoardData().allyPositions;
+
+        // Añadir entidades de enemigos
+        AddEntity(enemiesOnBoard, blackEnemyPrefab);
+
+        // Añadir entidades de aliados
+        AddEntity(alliesOnBoard, defaultAllyPrefab);
+
+        // Ordenar la barra de turnos después de crear todas las entidades
+        ShuffleShiftBar();
     }
 
     /// <summary>
-    /// Orders the entities based on their velocity (VEL) to determine the turn order.
+    /// Ordena las entidades basandose en su VEL para determinar el orden
     /// </summary>
     public void ShuffleShiftBar()
     {
@@ -89,6 +100,7 @@ public class CombatManager : MonoBehaviour
         _entityList = sortedEntities;
 
         // Mostrar el orden de turnos
+        /*
         for (int i = 0; i < _entityList.Count; i++)
         {
             EntityData data = _entityList[i].data;
@@ -98,13 +110,13 @@ public class CombatManager : MonoBehaviour
                 velocity = characterData.VEL;
             }
 
-            //Debug.Log("Turn " + (i + 1) + ": " + data.NAME + " with VEL: " + velocity);
+            Debug.Log("Turn " + (i + 1) + ": " + data.NAME + " with VEL: " + velocity);
         }
+        */
     }
 
-
     /// <summary>
-    /// Check when its necessary the win condition to end the battle
+    /// Checkea si se cumple la win condition para acabar el combate
     /// </summary>
     public void CheckRoundState()
     {
@@ -115,34 +127,29 @@ public class CombatManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Instancia y añade al tablero un array de entidades
+    /// Instancia y añade al tablero un array de entidades.
     /// </summary>
-    /// <param name="ents">Las entidades a crear</param>
-    private void AddEntity(EntityOnBoard[] ents)
+    /// <param name="ents">Las entidades a crear.</param>
+    /// <param name="prefab">El prefab a instanciar.</param>
+    private void AddEntity(EntityOnBoard[] ents, GameObject prefab)
     {
         for (int i = 0; i < ents.Length; i++)
         {
             EntityOnBoard eob = ents[i];
-            //Busca la casilla en la que se va a colocar el enemigo
+            // Buscar la casilla en la que se va a colocar la entidad
             Cell cell = boardManager.FindCell(eob.x, eob.z);
-            //Instancia el enemigo
 
+            // Instanciar la entidad en la posición correspondiente
+            GameObject obj = Instantiate(prefab, cell.gameObject.transform.position, Quaternion.identity);
 
-            //GameObject obj = Instantiate(eob.entityData.prefab,
-            //    cell.gameObject.transform.position,
-            //    Quaternion.identity);
-
-            GameObject obj = Instantiate(blackEnemyPrefab,
-                cell.gameObject.transform.position,
-                Quaternion.identity);
-
-            //Añade el componente entity a la lista de entitys y le asigna sus datos.
+            // Añadir el componente entity a la lista de entidades y asignar sus datos
             Entity entity = obj.GetComponent<Entity>();
             _entityList.Add(entity);
-            entity.data = ents[i].entityData;
+            entity.data = eob.entityData;
+
             if (!cell.AssignEntity(entity))
             {
-                Debug.Log("la casilla está ocupada!");
+                Debug.Log("La casilla está ocupada!");
             }
         }
     }
