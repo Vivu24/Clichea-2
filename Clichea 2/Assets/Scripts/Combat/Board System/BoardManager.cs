@@ -11,7 +11,7 @@ public class BoardManager : MonoBehaviour
 
     static float CELL_SEPARATION = 5.1f;
     Cell[,] _cells; //El array de casillas del tablero.
-    
+
 
     /// <summary>
     /// Crea un tablero a partir de los parametros.
@@ -22,18 +22,24 @@ public class BoardManager : MonoBehaviour
     {
         int xCells = boardData.xCells;
         int zCells = boardData.zCells;
-        
+
         _cells = new Cell[xCells, zCells];
 
         if (xCells <= 0 || zCells <= 0) return;
-  
-        for(int i = 0;i < xCells; i++)
+
+        // Crear un empty con todas las celdas
+        GameObject boardParent = new GameObject("Board");
+
+        for (int i = 0; i < xCells; i++)
         {
-            for(int j = 0;j < zCells;j++)
+            for (int j = 0; j < zCells; j++)
             {
-                Cell cell = Instantiate(cellPrefab, 
-                    new Vector3(cell00position.x + i * CELL_SEPARATION,cell00position.y, cell00position.z + j * CELL_SEPARATION),
+                Cell cell = Instantiate(cellPrefab,
+                    new Vector3(cell00position.x + i * CELL_SEPARATION, cell00position.y, cell00position.z + j * CELL_SEPARATION),
                     Quaternion.identity).GetComponent<Cell>();
+
+                // Establecer el padre de la celda recién instanciada
+                cell.transform.SetParent(boardParent.transform);
 
                 _cells[i, j] = cell;
                 cell.SetBoard(this);
@@ -41,6 +47,7 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
+
 
     /// <summary>
     /// Muestra las casillas objetivo a partir de una forma y un objetivo en el centro.
