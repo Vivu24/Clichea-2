@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplorationMovementManager : MonoBehaviour
+public class ExplorationMovementManagerPablo : MonoBehaviour
 {
     #region parameters
     /// <summary>
@@ -91,18 +91,21 @@ public class ExplorationMovementManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (players_.Count == 0)
+            return;
+
         int i = 0;
-        if(prevDir_ != (xAxis_, zAxis_))
+        if (prevDir_ != (xAxis_, zAxis_))
         {
             prevDir_ = (xAxis_, zAxis_);
             movDir_.x = xAxis_;
             movDir_.z = zAxis_;
-            if(movDir_ != Vector3.zero)
+            if (movDir_ != Vector3.zero)
             {
                 players_[0].setDirection(movDir_);
-                foreach(PlayerController player in players_)
+                foreach (PlayerController player in players_)
                 {
-                    if(i > 0)
+                    if (i > 0 && i - 1 < playerNextPos_.Count)
                     {
                         Transform aux = player.transform;
                         otherDir_.x = playerNextPos_[i - 1].Peek().x - aux.position.x;
@@ -119,18 +122,18 @@ public class ExplorationMovementManager : MonoBehaviour
                 moving_ = false;
             }
         }
-        //Comprobamos todos los personajes y sus queues para saber si hay que girar a los seguidores o incluso añadir direcciones extras
+
         i = 0;
-        foreach(PlayerController player in players_)
+        foreach (PlayerController player in players_)
         {
-            if(moving_ && i > 0)
+            if (moving_ && i > 0 && i - 1 < playerNextPos_.Count)
             {
                 Transform aux = player.transform;
                 Queue<(float x, float z)> auxilio = playerNextPos_[i - 1];
                 (float x, float z) dest = auxilio.Peek();
                 if ((dest.x + 0.1 >= aux.position.x && dest.x - 0.1 <= aux.position.x) && (dest.z + 0.1 >= aux.position.z && dest.z - 0.1 <= aux.position.z))
                 {
-                    if(auxilio.Count < 5)
+                    if (auxilio.Count < 5)
                     {
                         auxilio.Enqueue(RequestLeaderPosition());
                     }
@@ -142,6 +145,6 @@ public class ExplorationMovementManager : MonoBehaviour
                 player.setDirection(movDir_);
             }
             i++;
-        }  
+        }
     }
 }

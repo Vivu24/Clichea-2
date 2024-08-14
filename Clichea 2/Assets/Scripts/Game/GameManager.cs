@@ -23,12 +23,12 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Reference to input manager
     /// </summary>
-    private ExplorationMovementManager movementMng_;
+    private ExplorationMovementManagerPablo movementMng_;
 
     /// <summary>
     /// Public accessor for InputManager so everyone can access it via GameManager without being able to modify it.
     /// </summary>
-    public ExplorationMovementManager MoveMng
+    public ExplorationMovementManagerPablo MoveMng
     {
         get { return movementMng_; }
     }
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        movementMng_ = GetComponent<ExplorationMovementManager>();
+        movementMng_ = GetComponent<ExplorationMovementManagerPablo>();
     }
 
     // Update is called once per frame

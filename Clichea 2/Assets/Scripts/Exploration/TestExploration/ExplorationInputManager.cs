@@ -5,7 +5,7 @@ using UnityEngine;
 public class ExplorationInputManager : MonoBehaviour
 {
     #region references
-    private ExplorationMovementManager _myMovement;
+    private ExplorationMovementManagerPablo _myMovement;
     #endregion
 
     #region parameters
@@ -17,7 +17,7 @@ public class ExplorationInputManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _myMovement = GetComponent<ExplorationMovementManager>();
+        _myMovement = GetComponent<ExplorationMovementManagerPablo>();
     }
 
     // Update is called once per frame
